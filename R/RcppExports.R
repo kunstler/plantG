@@ -2,6 +2,6 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 set_sane_gsl_error_handling <- function() {
-    invisible(.Call('tree_set_sane_gsl_error_handling', PACKAGE = 'tree'))
+    invisible(.Call('tree010_set_sane_gsl_error_handling', PACKAGE = 'tree010'))
 }
 

@@ -7,12 +7,10 @@ using namespace Rcpp;
 
 // set_sane_gsl_error_handling
 void set_sane_gsl_error_handling();
-RcppExport SEXP tree_set_sane_gsl_error_handling() {
+RcppExport SEXP tree010_set_sane_gsl_error_handling() {
 BEGIN_RCPP
-    {
-        Rcpp::RNGScope __rngScope;
-        set_sane_gsl_error_handling();
-    }
+    Rcpp::RNGScope __rngScope;
+    set_sane_gsl_error_handling();
     return R_NilValue;
 END_RCPP
 }

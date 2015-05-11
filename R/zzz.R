@@ -1,4 +1,4 @@
-##' @useDynLib tree
+##' @useDynLib tree010
 ##' @import Rcpp
 ##' @import methods
 
