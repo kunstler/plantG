@@ -7,6 +7,7 @@
 
 #include <plant/control.h>
 #include <plant/ff16_strategy.h>
+#include <plant/ff16FvCB_strategy.h>
 #include <plant/cohort_schedule.h>
 #include <plant/scm_utils.h> // Unfortunately needed for setup_cohort_schedule
 
@@ -68,6 +69,7 @@ Parameters<T>::Parameters()
     cohort_schedule_max_time(NA_REAL),
     hyperpar(util::get_from_package("FF16_hyperpar")) {
 }
+// WHAT SHOULD WE DO HERE TO HAVE TWO DIFFERENT PARAMETERS ??
 
 template <typename T>
 size_t Parameters<T>::size() const {

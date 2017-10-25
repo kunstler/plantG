@@ -10,6 +10,7 @@ Environment fixed_environment(double canopy_openness,
   std::vector<double> y = {canopy_openness, canopy_openness, canopy_openness};
   interpolator::Interpolator env;
   env.init(x, y);
+  // WHAT SHOULD WE DO HERE TO HAVE TWO DIFFERENT PARAMETERS ??
   Parameters<FF16_Strategy> p;
   Environment ret(make_environment(p));
   ret.light_environment = env;
@@ -52,5 +53,9 @@ double FF16_lcp_whole_plant(plant::PlantPlus<plant::FF16_Strategy> p) {
 }
 // [[Rcpp::export]]
 double FF16r_lcp_whole_plant(plant::PlantPlus<plant::FF16r_Strategy> p) {
+  return plant::tools::lcp_whole_plant(p);
+}
+// [[Rcpp::export]]
+double FF16FvCB_lcp_whole_plant(plant::PlantPlus<plant::FF16FvCB_Strategy> p) {
   return plant::tools::lcp_whole_plant(p);
 }

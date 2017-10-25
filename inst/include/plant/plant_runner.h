@@ -11,6 +11,7 @@ namespace tools {
 // TODO: This should be templated, I think, but that plays badly with
 // RcppR6's requirements for "concrete" types.
 struct PlantRunner {
+// WHAT SHOULD WE DO HERE TO HAVE TWO DIFFERENT PARAMETERS ??
   PlantRunner(PlantPlus<FF16_Strategy> plant_, Environment environment_)
     : plant(plant_), environment(environment_) {
     plant.compute_vars_phys(environment);
@@ -29,6 +30,7 @@ struct PlantRunner {
   ode::iterator ode_rates(ode::iterator it) const {
     return plant.ode_rates(it);
   }
+// WHAT SHOULD WE DO HERE TO HAVE TWO DIFFERENT PARAMETERS ??
   PlantPlus<FF16_Strategy> plant;
   Environment environment;
 };

@@ -302,6 +302,7 @@ Plant:
     concrete:
       - ["FF16": "plant::FF16_Strategy"]
       - ["FF16r": "plant::FF16r_Strategy"]
+      - ["FF16FvCB": "plant::FF16FvCB_Strategy"]
   constructor:
     args: [s: T]
     name_cpp: "plant::make_plant<T>"
@@ -424,6 +425,49 @@ FF16r_Strategy:
     - a_dG2: double
     - control: "plant::Control"
 
+FF16FvCB_Strategy:
+  name_cpp: "plant::FF16FvCB_Strategy"
+  roxygen: |
+    Strategy parameters based on FvCB photosynthesis model.
+    @title Strategy parameters
+    @param ...,values Values to initialise the struct with (either as
+    variadic arguments, or as a list, but not both).
+    @export
+  list:
+    - lma: double
+    - rho: double
+    - hmat: double
+    - omega: double
+    - eta: double
+    - theta: double
+    - a_l1: double
+    - a_l2: double
+    - a_r1: double
+    - a_b1: double
+    - r_s: double
+    - r_b: double
+    - r_r: double
+    - r_l: double
+    - a_y: double
+    - a_bio: double
+    - k_l: double
+    - k_b: double
+    - k_s: double
+    - k_r: double
+    - a_p1: double
+    - a_p2: double
+    - a_p3: double
+    - a_f3: double
+    - a_f1: double
+    - a_f2: double
+    - S_D: double
+    - a_d0: double
+    - d_I: double
+    - a_dG1: double
+    - a_dG2: double
+    - control: "plant::Control"
+
+
 Parameters:
   name_cpp: "plant::Parameters<T>"
   templates:
@@ -431,6 +475,7 @@ Parameters:
     concrete:
       - ["FF16": "plant::FF16_Strategy"]
       - ["FF16r": "plant::FF16r_Strategy"]
+      - ["FF16FvCB": "plant::FF16FvCB_Strategy"]
   # TODO: This is broken:
   # roxygen: |
   #   Strategy parameters that tune various aspects of the biological model.
@@ -463,6 +508,7 @@ PlantPlus:
     concrete:
       - ["FF16": "plant::FF16_Strategy"]
       - ["FF16r": "plant::FF16r_Strategy"]
+      - ["FF16FvCB": "plant::FF16FvCB_Strategy"]
   constructor:
     name_cpp: "plant::make_plant_plus<T>"
     args: [strategy: T]
@@ -555,6 +601,7 @@ Cohort:
     concrete:
       - ["FF16": "plant::FF16_Strategy"]
       - ["FF16r": "plant::FF16r_Strategy"]
+      - ["FF16FvCB": "plant::FF16FvCB_Strategy"]
   constructor:
     name_cpp: "plant::make_cohort<T>"
     args: [strategy: T]
@@ -591,6 +638,7 @@ Species:
     concrete:
       - ["FF16": "plant::FF16_Strategy"]
       - ["FF16r": "plant::FF16r_Strategy"]
+      - ["FF16FvCB": "plant::FF16FvCB_Strategy"]
   constructor:
     args: [strategy: T]
   active:
@@ -633,6 +681,7 @@ Patch:
     concrete:
       - ["FF16": "plant::FF16_Strategy"]
       - ["FF16r": "plant::FF16r_Strategy"]
+      - ["FF16FvCB": "plant::FF16FvCB_Strategy"]
   constructor:
     args: [parameters: "plant::Parameters<T>"]
   active:
@@ -688,6 +737,7 @@ SCM:
     concrete:
       - ["FF16": "plant::FF16_Strategy"]
       - ["FF16r": "plant::FF16r_Strategy"]
+      - ["FF16FvCB": "plant::FF16FvCB_Strategy"]
   constructor:
     args: [parameters: "plant::Parameters<T>"]
   methods:
@@ -755,6 +805,7 @@ StochasticSpecies:
     concrete:
       - ["FF16": "plant::FF16_Strategy"]
       - ["FF16r": "plant::FF16r_Strategy"]
+      - ["FF16FvCB": "plant::FF16FvCB_Strategy"]
   constructor:
     args: [strategy: "T"]
   active:
@@ -798,6 +849,7 @@ StochasticPatch:
     concrete:
       - ["FF16": "plant::FF16_Strategy"]
       - ["FF16r": "plant::FF16r_Strategy"]
+      - ["FF16FvCB": "plant::FF16FvCB_Strategy"]
   constructor:
     args: [parameters: "plant::Parameters<T>"]
   active:
@@ -859,6 +911,7 @@ StochasticPatchRunner:
     concrete:
       - ["FF16": "plant::FF16_Strategy"]
       - ["FF16r": "plant::FF16r_Strategy"]
+      - ["FF16FvCB": "plant::FF16FvCB_Strategy"]
   constructor:
     args: [parameters: "plant::Parameters<T>"]
   methods:
