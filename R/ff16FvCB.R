@@ -228,7 +228,7 @@ make_FF16FvCB_hyperpar <- function(
         ret <- c(last(AA), 0)
         names(ret) <- c("p1","p2", "p3")
       } else {
-        fit <- nls(AA ~ (p1 +p2*E - sqrt((p1+p2*E)^2-4*p3*p2*E*p1))/(2*p3), data_a,
+        fit <- nls(AA ~ (p1 +p2*E - sqrt((p1+p2*E)^2-4*p3*p2*E*p1))/(2*p3), data.frame(E = E, AA = AA),
                    start = list(p1 = 120, p2 = 400, p3 = 0.9),
                    lower=c(10,2, 0.2), upper=c(200,800, 1), algorithm = "port")
         ret <- coef(fit)
