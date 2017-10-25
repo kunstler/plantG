@@ -194,11 +194,11 @@ make_FF16FvCB_hyperpar <- function(
 
     ## Narea, photosynthesis, respiration
 
-    assimilation_FvCB <- function(I, V, vpd, alpha, theta) {
+    assimilation_FvCB <- function(I, V, vpd, alpha, theta, lf6) {
     df_pred <- Photosyn(PPFD=I *1e+06/(24*3600), # conversion of light in mu mol /m2 /s is it ok ?
                         VPD = vpd,
                         Vcmax  = V,
-                        Jmax  = V*1.67,
+                        Jmax  = V*lf6,
                         alpha = alpha,
                         theta = theta,
                         gsmodel = "BBLeuning") # Jmax ~1.67 Vcmax in Medlyn et al. 20
@@ -207,26 +207,26 @@ make_FF16FvCB_hyperpar <- function(
 
 
     ## Photosynthesis  [mol CO2 / m2 / yr]
-    approximate_annual_assimilation <- function(narea, latitude) {
+    approximate_annual_assimilation <- function(narea, latitude, vpd) {
       E <- seq(0, 1, by=0.02)
       ## Only integrate over half year, as solar path is symmetrical
       D <- seq(0, 365/2, length.out = 10000)
       I <- PAR_given_solar_angle(solar_angle(D, latitude = abs(latitude)))
 
-      AmaxV <- B_lf1 * (narea) ^  B_lf5
+      Vcmax <- B_lf1 * (narea) ^  B_lf5
       theta <- B_lf2
       alpha <- B_lf3
-
+      lf6   <- B_lf6
       AA <- NA * E
 
       for (i in seq_len(length(E))) {
         AA[i] <- 2 * trapezium(D, assimilation_FvCB(
-                                    k_I * I * E[i], Amax, theta, QY))
+                                    k_I * I * E[i], Vcmax, vpd, alpha, theta, lf6))
       }
       if(all(diff(AA) < 1E-8)) {
         # line fitting will fail if all have are zero, or potentially same value
         ret <- c(last(AA), 0)
-        names(ret) <- c("p1","p2")
+        names(ret) <- c("p1","p2", "p3")
       } else {
         fit <- nls(AA ~ (p1 +p2*E - sqrt((p1+p2*E)^2-4*p3*p2*E*p1))/(2*p3), data_a,
                    start = list(p1 = 120, p2 = 400, p3 = 0.9),
@@ -243,7 +243,7 @@ make_FF16FvCB_hyperpar <- function(
     if (length(narea) > 0 || k_I != 0.5) {
       i <- match(narea, unique(narea))
       y <- vapply(unique(narea), approximate_annual_assimilation,
-                  numeric(2), latitude)
+                  numeric(3), latitude, vpd)
       a_p1  <- y["p1", i]
       a_p2  <- y["p2", i]
       a_p3  <- y["p3", i]
