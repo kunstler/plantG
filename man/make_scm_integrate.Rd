@@ -21,3 +21,4 @@ variable that \code{PlantPlus} tracks can be integrated out.
 Because the pre-processing step is reasonably slow, this function
 returns a function that takes a variable name and integrates it.
 }
+

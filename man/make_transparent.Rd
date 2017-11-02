@@ -18,3 +18,4 @@ Make colours transparent
 make_transparent("red", seq(0, 1, length.out=6))
 make_transparent(c("red", "blue"), .5)
 }
+

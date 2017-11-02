@@ -25,3 +25,4 @@ very well, and would differ if the function was better
 constructed.  Values falling outwide the domain are not evaluated
 (which is useful if these would cause crashes, warnings, etc).
 }
+

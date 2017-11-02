@@ -3,7 +3,6 @@
 \name{Environment}
 \alias{Environment}
 \alias{make_environment}
-\alias{make_environment}
 \title{Environment object}
 \usage{
 Environment(disturbance_mean_interval, seed_rain, control)
@@ -26,3 +25,4 @@ make_environment(p)
 \description{
 Environment object
 }
+

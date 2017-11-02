@@ -7,7 +7,7 @@
 scm_base_parameters(type = "FF16")
 }
 \arguments{
-\item{type}{Name of model (defaults to FF16 but FF16r also valid)}
+\item{type}{Either \code{"FF16"}, \code{"FF16r"}, or  \code{"FF16FvCB"}.}
 }
 \description{
 Hopefully sensible set of parameters for use with the SCM.  Turns
@@ -17,3 +17,4 @@ hyperparameterisation that we most often use.
 \author{
 Rich FitzJohn
 }
+

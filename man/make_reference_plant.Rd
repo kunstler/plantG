@@ -21,3 +21,4 @@ Create an instance of reference version for specified growth model
 Daniel S. Falster (extra code and porting by Rich
 FitzJohn)
 }
+

@@ -2,8 +2,8 @@
 % Please edit documentation in R/fitness_support.R
 \name{bounds}
 \alias{bounds}
-\alias{check_bounds}
 \alias{bounds_infinite}
+\alias{check_bounds}
 \alias{check_point}
 \title{Trait bounds}
 \usage{
@@ -34,3 +34,4 @@ Helper function for making bounds
 bounds(lma=c(0.01, 10))
 bounds(lma=c(0.01, 10), rho=c(1, 1000))
 }
+

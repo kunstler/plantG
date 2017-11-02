@@ -30,3 +30,4 @@ everything else is sent to INFO.  All events have a "routine"
 field added to them, which is useful if sent to a Redis server
 (using \code{loggr.redis}).
 }
+

@@ -12,3 +12,4 @@ CohortSchedule(n_species)
 \description{
 Schedule of cohort introduction times
 }
+
