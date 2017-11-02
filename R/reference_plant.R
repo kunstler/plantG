@@ -12,7 +12,12 @@ make_reference_plant <- function(type="FF16") {
   if (type == "FF16") {
     ret <- make_reference_plant_FF16()
   } else {
-    stop("No reference plant for type ", type)
+  if (type == "FF16FvCB") {
+    ret <- make_reference_plant_FF16FvCB()
+  } else {
+
+      stop("No reference plant for type ", type)
+   }
   }
   ret
 }
