@@ -10,7 +10,7 @@ Environment fixed_environment(double canopy_openness,
   std::vector<double> y = {canopy_openness, canopy_openness, canopy_openness};
   interpolator::Interpolator env;
   env.init(x, y);
-  // WHAT SHOULD WE DO HERE TO HAVE TWO DIFFERENT PARAMETERS ??
+  // WHAT SHOULD WE DO HERE TO HAVE TWO DIFFERENT PARAMETERS ?? Probably not a pb?
   Parameters<FF16_Strategy> p;
   Environment ret(make_environment(p));
   ret.light_environment = env;

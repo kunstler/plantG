@@ -201,6 +201,10 @@ plant_to_plant_plus <- function(x, ...) {
 `plant_to_plant_plus.Plant<FF16r>` <- function(x, ...) {
   FF16r_plant_to_plant_plus(x, ...)
 }
+##' @export
+`plant_to_plant_plus.Plant<FF16FvCB>` <- function(x, ...) {
+  FF16FvCB_plant_to_plant_plus(x, ...)
+}
 
 ##' Compute the whole plant light compensation point for a single
 ##' plant.
