@@ -198,10 +198,10 @@ make_FF16FvCB_hyperpar <- function(
     df_pred <- Photosyn(PPFD=I *1e+06/(24*3600), # conversion of light in mu mol /m2 /s is it ok ?
                         VPD = vpd,
                         Vcmax  = V,
-                        Jmax  = V*lf6,
+                        Jmax  = V*lf6, # Jmax ~1.67 Vcmax in Medlyn et al. 20
                         alpha = alpha,
                         theta = theta,
-                        gsmodel = "BBLeuning") # Jmax ~1.67 Vcmax in Medlyn et al. 20
+                        gsmodel = "BBLeuning")
     return((df_pred$ALEAF + df_pred$Rd)*24 * 3600 / 1e+06)
     }
 
@@ -228,9 +228,9 @@ make_FF16FvCB_hyperpar <- function(
         ret <- c(last(AA), 0)
         names(ret) <- c("p1","p2", "p3")
       } else {
-        fit <- nls(AA ~ (p1 +p2*E - sqrt((p1+p2*E)^2-4*p3*p2*E*p1))/(2*p3), data.frame(E = E, AA = AA),
-                   start = list(p1 = 120, p2 = 400, p3 = 0.9),
-                   lower=c(10,2, 0.2), upper=c(200,800, 1), algorithm = "port")
+        fit <- nls(AA ~ (p1 +p2*E - sqrt((p1+p2*E)^2-4*p3*p2*E*p1))/(2*p3),
+                   data = data.frame(E = E, AA = AA),
+                   start = list(p1 = 300, p2 = 600, p3 = 0.7))
         ret <- coef(fit)
       }
       ret

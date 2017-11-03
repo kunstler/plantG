@@ -17,7 +17,8 @@ Imports:
     loggr,
     crayon,
     nleqslv,
-    BB
+    BB,
+    plantecophys
 Suggests:
     testthat,
     deSolve,
