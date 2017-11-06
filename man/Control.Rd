@@ -13,3 +13,4 @@ variadic arguments, or as a list, but not both).}
 \description{
 Control parameters that tune various aspects of the numerical solvers.
 }
+

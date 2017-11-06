@@ -21,3 +21,4 @@ assembly_parameters(..., pars = NULL,
 Helper function for creating parameter objects suitable for an
 assembly.
 }
+
