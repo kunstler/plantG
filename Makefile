@@ -20,7 +20,7 @@ roxygen:
 	@mkdir -p man
 	Rscript -e "library(methods); devtools::document()"
 
-install: attributes RcppR6 roxygen 
+install:
 	R CMD INSTALL .
 
 build:
