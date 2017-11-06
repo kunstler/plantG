@@ -12,4 +12,3 @@ check_inviable(p)
 \description{
 Check low-abundance strategies for viability.
 }
-

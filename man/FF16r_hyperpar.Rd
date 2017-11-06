@@ -6,4 +6,3 @@
 \usage{
 FF16r_hyperpar(m, s, filter = TRUE)
 }
-

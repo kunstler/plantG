@@ -15,4 +15,3 @@ validate(x, ...)
 Validate an object.  Currently only \code{Parameters} objects are
 validated.
 }
-

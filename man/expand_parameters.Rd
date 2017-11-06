@@ -26,4 +26,3 @@ reasonable most of the time.
 \author{
 Rich FitzJohn
 }
-

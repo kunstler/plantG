@@ -31,4 +31,3 @@ fitness is approximately zero.
 \author{
 Rich FitzJohn
 }
-

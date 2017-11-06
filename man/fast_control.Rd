@@ -16,4 +16,3 @@ A Control object with parameters set.
 \author{
 Rich FitzJohn
 }
-

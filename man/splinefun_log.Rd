@@ -24,4 +24,3 @@ Spline interpolation in log-x space
 \author{
 Rich FitzJohn
 }
-

@@ -28,4 +28,3 @@ Construct a fitness landscape.
 \author{
 Rich FitzJohn
 }
-

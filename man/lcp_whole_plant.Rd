@@ -18,4 +18,3 @@ plant.
 \author{
 Rich FitzJohn
 }
-

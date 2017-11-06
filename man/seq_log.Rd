@@ -33,4 +33,3 @@ generates a range in non-log space.
 \author{
 Rich FitzJohn
 }
-
