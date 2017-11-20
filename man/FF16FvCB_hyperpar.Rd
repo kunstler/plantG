@@ -9,8 +9,8 @@ make_FF16FvCB_hyperpar(lma_0 = 0.1978791, B_kl1 = 0.4565855, B_kl2 = 1.71,
   rho_0 = 608, B_dI1 = 0.01, B_dI2 = 0, B_ks1 = 0.2, B_ks2 = 0,
   B_rs1 = 4012, B_rb1 = 2 * 4012, B_f1 = 3, narea = 0.00187,
   narea_0 = 0.00187, B_lf1 = 31.62 * 1000^0.801, B_lf2 = 0.7,
-  B_lf3 = 0.3, B_lf4 = 21000, B_lf5 = 0.801, B_lf6 = 1.67, k_I = 0.5,
-  latitude = 0, vpd = 0)
+  B_lf3 = 0.3, B_lf4 = 21000, B_lf5 = 0.801, B_lf6 = 1.67, B_lf7 = 1,
+  k_I = 0.5, latitude = 0, vpd = 0)
 
 FF16FvCB_hyperpar(m, s, filter = TRUE)
 }
@@ -51,7 +51,9 @@ FF16FvCB_hyperpar(m, s, filter = TRUE)
 
 \item{B_lf5}{Vcmax scaling exponent for leaf nitrogen [dimensionless]}
 
-\item{B_lf6}{Jmax vs Vcmax comversion factor [dimensionless UNIT ??]}
+\item{B_lf6}{Jmax vs Vcmax comversion factor [dimensionless]}
+
+\item{B_lf7}{Scaling slope for Jmax vs Vcmax [dimensionless]}
 
 \item{k_I}{light extinction coefficient [dimensionless]}
 

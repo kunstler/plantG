@@ -100,7 +100,8 @@ make_environment <- function(p) {
 ##' @param B_lf3 Quantum yield of electron transport [mol mol-1]
 ##' @param B_lf4 CO_2 respiration per unit leaf nitrogen [mol / yr / kg]
 ##' @param B_lf5 Vcmax scaling exponent for leaf nitrogen [dimensionless]
-##' @param B_lf6 Jmax vs Vcmax comversion factor [dimensionless UNIT ??]
+##' @param B_lf6 Jmax vs Vcmax comversion factor [dimensionless]
+##' @param B_lf7 Scaling slope for Jmax vs Vcmax [dimensionless]
 ##' @param k_I light extinction coefficient [dimensionless]
 ##' @param latitude degrees from equator (0-90), used in solar model [deg]
 ##' @param vpd Vapour pressure deficit [kPa]
@@ -108,9 +109,27 @@ make_environment <- function(p) {
 ##' @rdname FF16FvCB_hyperpar
 ##' @import plantecophys
 ##' @import nls2
-make_FF16FvCB_hyperpar <- function(lma_0=0.1978791, B_kl1=0.4565855, B_kl2=1.71, rho_0=608.0, B_dI1=0.01, B_dI2=0.0, B_ks1=0.2, B_ks2=0.0, B_rs1=4012.0, B_rb1=2.0*4012.0, B_f1 =3.0, narea=1.87e-3, narea_0=1.87e-3, B_lf1= 31.62 *1000^0.801, # http://doi.wiley.com/10.1111/gcb.12870 conversion of Nare in g m-2
-                                   B_lf2=0.7, B_lf3=0.3, B_lf4=21000, B_lf5=0.801, # http://doi.wiley.com/10.1111/gcb.12870
-                                   B_lf6=1.67, k_I=0.5, latitude=0, vpd = 0) {
+make_FF16FvCB_hyperpar <- function(lma_0=0.1978791,
+                                      B_kl1=0.4565855,
+                                      B_kl2=1.71,
+                                      rho_0=608.0,
+                                      B_dI1=0.01,
+                                      B_dI2=0.0,
+                                      B_ks1=0.2,
+                                      B_ks2=0.0,
+                                      B_rs1=4012.0,
+                                      B_rb1=2.0*4012.0,
+                                      B_f1 =3.0,
+                                      narea=1.87e-3,
+                                      narea_0=1.87e-3,
+                                      B_lf1= 31.62 *1000^0.801, # http://doi.wiley.com/10.1111/gcb.12870 conversion of Nare in g m-2
+                                      B_lf2=0.7,
+                                      B_lf3=0.3,
+                                      B_lf4=21000,
+                                      B_lf5=0.801, # http://doi.wiley.com/10.1111/gcb.12870
+                                      B_lf6=1.67, # Medlyn et al. 2002 / for Walker 1.01
+                                      B_lf7 = 1, # Medlyn et al. 2002 / for Walker 0.89
+                                      k_I=0.5, latitude=0, vpd = 0) {
   assert_scalar <- function(x, name=deparse(substitute(x))) {
     if (length(x) != 1L) {
       stop(sprintf("%s must be a scalar", name), call. = FALSE)
@@ -135,6 +154,7 @@ make_FF16FvCB_hyperpar <- function(lma_0=0.1978791, B_kl1=0.4565855, B_kl2=1.71,
   assert_scalar(B_lf4)
   assert_scalar(B_lf5)
   assert_scalar(B_lf6)
+  assert_scalar(B_lf7)
   assert_scalar(k_I)
   assert_scalar(latitude)
   assert_scalar(vpd)
@@ -175,11 +195,11 @@ make_FF16FvCB_hyperpar <- function(lma_0=0.1978791, B_kl1=0.4565855, B_kl2=1.71,
 
     ## Narea, photosynthesis, respiration
 
-    assimilation_FvCB <- function(I, V, vpd, alpha, theta, lf6) {
+    assimilation_FvCB <- function(I, V, vpd, alpha, theta, lf6, lf7) {
     df_pred <- Photosyn(PPFD=I *1e+06/(24*3600), # conversion of light in mu mol /m2 /s is it ok ?
                         VPD = vpd,
                         Vcmax  = V,
-                        Jmax  = V*lf6, # Jmax ~1.67 Vcmax in Medlyn et al. 20
+                        Jmax  = lf6*V^lf7, # Jmax ~1.67 Vcmax in Medlyn et al. 20
                         alpha = alpha,
                         theta = theta,
                         gsmodel = "BBLeuning")
@@ -198,11 +218,12 @@ make_FF16FvCB_hyperpar <- function(lma_0=0.1978791, B_kl1=0.4565855, B_kl2=1.71,
       theta <- B_lf2
       alpha <- B_lf3
       lf6   <- B_lf6
+      lf7   <- B_lf7
       AA <- NA * E
 
       for (i in seq_len(length(E))) {
         AA[i] <- 2 * trapezium(D, assimilation_FvCB(
-                                    k_I * I * E[i], Vcmax, vpd, alpha, theta, lf6))
+                                    k_I * I * E[i], Vcmax, vpd, alpha, theta, lf6, lf7))
       }
       if(all(diff(AA) < 1E-8)) {
         # line fitting will fail if all have are zero, or potentially same value
