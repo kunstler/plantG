@@ -107,29 +107,10 @@ make_environment <- function(p) {
 ##' @export
 ##' @rdname FF16FvCB_hyperpar
 ##' @import plantecophys
-make_FF16FvCB_hyperpar <- function(
-                                lma_0=0.1978791,
-                                B_kl1=0.4565855,
-                                B_kl2=1.71,
-                                rho_0=608.0,
-                                B_dI1=0.01,
-                                B_dI2=0.0,
-                                B_ks1=0.2,
-                                B_ks2=0.0,
-                                B_rs1=4012.0,
-                                B_rb1=2.0*4012.0,
-                                B_f1 =3.0,
-                                narea=1.87e-3,
-                                narea_0=1.87e-3,
-                                B_lf1= 31.62 *1000^0.801, # http://doi.wiley.com/10.1111/gcb.12870 conversion of Nare in g m-2
-                                B_lf2=0.7,
-                                B_lf3=0.3,
-                                B_lf4=21000,
-                                B_lf5=0.801, # http://doi.wiley.com/10.1111/gcb.12870
-                                B_lf6=1.67,
-                                k_I=0.5,
-                                latitude=0,
-                                vpd = 0) {
+##' @import nls2
+make_FF16FvCB_hyperpar <- function(lma_0=0.1978791, B_kl1=0.4565855, B_kl2=1.71, rho_0=608.0, B_dI1=0.01, B_dI2=0.0, B_ks1=0.2, B_ks2=0.0, B_rs1=4012.0, B_rb1=2.0*4012.0, B_f1 =3.0, narea=1.87e-3, narea_0=1.87e-3, B_lf1= 31.62 *1000^0.801, # http://doi.wiley.com/10.1111/gcb.12870 conversion of Nare in g m-2
+                                   B_lf2=0.7, B_lf3=0.3, B_lf4=21000, B_lf5=0.801, # http://doi.wiley.com/10.1111/gcb.12870
+                                   B_lf6=1.67, k_I=0.5, latitude=0, vpd = 0) {
   assert_scalar <- function(x, name=deparse(substitute(x))) {
     if (length(x) != 1L) {
       stop(sprintf("%s must be a scalar", name), call. = FALSE)
@@ -228,9 +209,13 @@ make_FF16FvCB_hyperpar <- function(
         ret <- c(last(AA), 0)
         names(ret) <- c("p1","p2", "p3")
       } else {
+        fitc <- nls2(AA ~ (p1 +p2*E - sqrt((p1+p2*E)^2-4*p3*p2*E*p1))/(2*p3),
+                     data = data.frame(E = E, AA = AA),
+                algorithm = "brute-force",
+               start = data.frame(p1 = c(100, 200, 300), p2 = rep(600, 3), p3 = rep(0.7, 3)))
         fit <- nls(AA ~ (p1 +p2*E - sqrt((p1+p2*E)^2-4*p3*p2*E*p1))/(2*p3),
-                   data = data.frame(E = E, AA = AA),
-                   start = list(p1 = 300, p2 = 600, p3 = 0.7))
+                   data.frame(E = E, AA = AA),
+               start = coef(fitc))
         ret <- coef(fit)
       }
       ret
