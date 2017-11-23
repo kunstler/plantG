@@ -108,7 +108,7 @@ make_environment <- function(p) {
 ##' @export
 ##' @rdname FF16FvCB_hyperpar
 ##' @import plantecophys
-##' @import nls2
+##' @import nlmrt
 make_FF16FvCB_hyperpar <- function(lma_0=0.1978791,
                                       B_kl1=0.4565855,
                                       B_kl2=1.71,
@@ -230,14 +230,15 @@ make_FF16FvCB_hyperpar <- function(lma_0=0.1978791,
         ret <- c(last(AA), 0)
         names(ret) <- c("p1","p2", "p3")
       } else {
-        fitc <- nls2(AA ~ (p1 +p2*E - sqrt((p1+p2*E)^2-4*p3*p2*E*p1))/(2*p3),
-                     data = data.frame(E = E, AA = AA),
-                algorithm = "brute-force",
-               start = data.frame(p1 = c(100, 200, 300), p2 = rep(600, 3), p3 = rep(0.7, 3)))
-        fit <- nls(AA ~ (p1 +p2*E - sqrt((p1+p2*E)^2-4*p3*p2*E*p1))/(2*p3),
-                   data.frame(E = E, AA = AA),
-               start = coef(fitc))
-        ret <- coef(fit)
+        fitxb2 <- nlxb(AA ~ (p1 +p2*E - sqrt((p1+p2*E)^2-4*p3*p2*E*p1))/(2*p3),
+                           data = data.frame(E = E, AA = AA),
+                           start = list(p1 = 500,
+                                        p2 = 600,
+                                        p3 = 0.8),
+                           lower = 0.01,
+                           upper = c(7000, 1200, 1))
+        ret <- fitxb2$coefficients
+        names(ret) <- c("p1","p2", "p3")
       }
       ret
     }
