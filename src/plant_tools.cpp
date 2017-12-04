@@ -47,14 +47,17 @@ plant::Environment fixed_environment(double canopy_openness,
 
 // Technical debt: (See RcppR6 #23 and plant #164)
 
+//' @export
 // [[Rcpp::export]]
 double FF16_lcp_whole_plant(plant::PlantPlus<plant::FF16_Strategy> p) {
   return plant::tools::lcp_whole_plant(p);
 }
+//' @export
 // [[Rcpp::export]]
 double FF16r_lcp_whole_plant(plant::PlantPlus<plant::FF16r_Strategy> p) {
   return plant::tools::lcp_whole_plant(p);
 }
+//' @export
 // [[Rcpp::export]]
 double FF16FvCB_lcp_whole_plant(plant::PlantPlus<plant::FF16FvCB_Strategy> p) {
   return plant::tools::lcp_whole_plant(p);

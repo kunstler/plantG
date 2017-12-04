@@ -7471,6 +7471,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// matrix_to_list
+Rcpp::List matrix_to_list(Rcpp::NumericMatrix x);
+RcppExport SEXP _plant_matrix_to_list(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(matrix_to_list(x));
+    return rcpp_result_gen;
+END_RCPP
+}
 // trapezium
 double trapezium(const std::vector<double>& x, const std::vector<double>& y);
 RcppExport SEXP _plant_trapezium(SEXP xSEXP, SEXP ySEXP) {
@@ -7505,17 +7516,6 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const std::vector<double>& >::type y(ySEXP);
     Rcpp::traits::input_parameter< double >::type scal(scalSEXP);
     rcpp_result_gen = Rcpp::wrap(local_error_integration(x, y, scal));
-    return rcpp_result_gen;
-END_RCPP
-}
-// matrix_to_list
-Rcpp::List matrix_to_list(Rcpp::NumericMatrix x);
-RcppExport SEXP _plant_matrix_to_list(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(matrix_to_list(x));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -8192,10 +8192,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"_plant_make_cohort_schedule__Parameters___FF16FvCB", (DL_FUNC) &_plant_make_cohort_schedule__Parameters___FF16FvCB, 1},
     {"_plant_cohort_schedule_times_default", (DL_FUNC) &_plant_cohort_schedule_times_default, 1},
     {"_plant_test_uniroot", (DL_FUNC) &_plant_test_uniroot, 3},
+    {"_plant_matrix_to_list", (DL_FUNC) &_plant_matrix_to_list, 1},
     {"_plant_trapezium", (DL_FUNC) &_plant_trapezium, 2},
     {"_plant_trapezium_vector", (DL_FUNC) &_plant_trapezium_vector, 2},
     {"_plant_local_error_integration", (DL_FUNC) &_plant_local_error_integration, 3},
-    {"_plant_matrix_to_list", (DL_FUNC) &_plant_matrix_to_list, 1},
     {NULL, NULL, 0}
 };
 

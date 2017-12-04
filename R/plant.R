@@ -225,6 +225,11 @@ lcp_whole_plant <- function(p, ...) {
   FF16r_lcp_whole_plant(p, ...)
 }
 ##' @export
+`lcp_whole_plant.PlantPlus<FF16FvCB>` <- function(p, ...) {
+  FF16FvCB_lcp_whole_plant(p, ...)
+}
+
+##' @export
 lcp_whole_plant.Plant <- function(p, ...) {
   lcp_whole_plant(plant_to_plant_plus(p, NULL))
 }

@@ -42,14 +42,17 @@ fixed_environment <- function(canopy_openness, height_max = 150.0) {
     .Call('_plant_fixed_environment', PACKAGE = 'plant', canopy_openness, height_max)
 }
 
+#' @export
 FF16_lcp_whole_plant <- function(p) {
     .Call('_plant_FF16_lcp_whole_plant', PACKAGE = 'plant', p)
 }
 
+#' @export
 FF16r_lcp_whole_plant <- function(p) {
     .Call('_plant_FF16r_lcp_whole_plant', PACKAGE = 'plant', p)
 }
 
+#' @export
 FF16FvCB_lcp_whole_plant <- function(p) {
     .Call('_plant_FF16FvCB_lcp_whole_plant', PACKAGE = 'plant', p)
 }
@@ -2717,6 +2720,10 @@ test_uniroot <- function(f, min, max) {
     .Call('_plant_test_uniroot', PACKAGE = 'plant', f, min, max)
 }
 
+matrix_to_list <- function(x) {
+    .Call('_plant_matrix_to_list', PACKAGE = 'plant', x)
+}
+
 trapezium <- function(x, y) {
     .Call('_plant_trapezium', PACKAGE = 'plant', x, y)
 }
@@ -2727,9 +2734,5 @@ trapezium_vector <- function(x, y) {
 
 local_error_integration <- function(x, y, scal) {
     .Call('_plant_local_error_integration', PACKAGE = 'plant', x, y, scal)
-}
-
-matrix_to_list <- function(x) {
-    .Call('_plant_matrix_to_list', PACKAGE = 'plant', x)
 }
 
