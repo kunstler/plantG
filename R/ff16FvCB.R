@@ -105,6 +105,7 @@ make_environment <- function(p) {
 ##' @param k_I light extinction coefficient [dimensionless]
 ##' @param latitude degrees from equator (0-90), used in solar model [deg]
 ##' @param vpd Vapour pressure deficit [kPa]
+##' @param Tleaf Leaf temperature [degrees C]
 ##' @export
 ##' @rdname FF16FvCB_hyperpar
 ##' @import plantecophys
@@ -129,7 +130,7 @@ make_FF16FvCB_hyperpar <- function(lma_0=0.1978791,
                                       B_lf5=0.801, # http://doi.wiley.com/10.1111/gcb.12870
                                       B_lf6=1.67, # Medlyn et al. 2002 / for Walker 1.01
                                       B_lf7 = 1, # Medlyn et al. 2002 / for Walker 0.89
-                                      k_I=0.5, latitude=0, vpd = 0) {
+                                      k_I=0.5, latitude=0, vpd = 0, Tleaf= 25) {
   assert_scalar <- function(x, name=deparse(substitute(x))) {
     if (length(x) != 1L) {
       stop(sprintf("%s must be a scalar", name), call. = FALSE)
@@ -158,6 +159,7 @@ make_FF16FvCB_hyperpar <- function(lma_0=0.1978791,
   assert_scalar(k_I)
   assert_scalar(latitude)
   assert_scalar(vpd)
+  assert_scalar(Tleaf)
 
   ## TODO: k_I should actually be in default parameter set, so perhaps don't pass into function?
 
@@ -195,9 +197,10 @@ make_FF16FvCB_hyperpar <- function(lma_0=0.1978791,
 
     ## Narea, photosynthesis, respiration
 
-    assimilation_FvCB <- function(I, V, vpd, alpha, theta, lf6, lf7) {
+    assimilation_FvCB <- function(I, V, vpd, Tleaf, alpha, theta, lf6, lf7) {
     df_pred <- Photosyn(PPFD=I *1e+06/(24*3600), # conversion of light in mu mol /m2 /s is it ok ?
                         VPD = vpd,
+                        Tleaf = Tleaf,
                         Vcmax  = V,
                         Jmax  = lf6*V^lf7, # Jmax ~1.67 Vcmax in Medlyn et al. 20
                         alpha = alpha,
@@ -208,7 +211,7 @@ make_FF16FvCB_hyperpar <- function(lma_0=0.1978791,
 
 
     ## Photosynthesis  [mol CO2 / m2 / yr]
-    approximate_annual_assimilation <- function(narea, latitude, vpd) {
+    approximate_annual_assimilation <- function(narea, latitude, vpd, Tleaf) {
       E <- seq(0, 1, by=0.02)
       ## Only integrate over half year, as solar path is symmetrical
       D <- seq(0, 365/2, length.out = 10000)
@@ -223,7 +226,7 @@ make_FF16FvCB_hyperpar <- function(lma_0=0.1978791,
 
       for (i in seq_len(length(E))) {
         AA[i] <- 2 * trapezium(D, assimilation_FvCB(
-                                    k_I * I * E[i], Vcmax, vpd, alpha, theta, lf6, lf7))
+                                    k_I * I * E[i], Vcmax, vpd, Tleaf, alpha, theta, lf6, lf7))
       }
       if(all(diff(AA) < 1E-8)) {
         # line fitting will fail if all have are zero, or potentially same value
@@ -250,7 +253,7 @@ make_FF16FvCB_hyperpar <- function(lma_0=0.1978791,
     if (length(narea) > 0 || k_I != 0.5) {
       i <- match(narea, unique(narea))
       y <- vapply(unique(narea), approximate_annual_assimilation,
-                  numeric(3), latitude, vpd)
+                  numeric(3), latitude, vpd, Tleaf)
       a_p1  <- y["p1", i]
       a_p2  <- y["p2", i]
       a_p3  <- y["p3", i]

@@ -20,7 +20,8 @@ Imports:
     crayon,
     nleqslv,
     BB,
-    plantecophys
+    plantecophys,
+    nlmrt
 Suggests:
     testthat,
     deSolve,
@@ -30,4 +31,4 @@ Suggests:
     knitr,
     plant.ml
 VignetteBuilder: knitr
-RoxygenNote: 6.0.1
+RoxygenNote: 5.0.1
