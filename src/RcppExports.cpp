@@ -6,140 +6,6 @@
 
 using namespace Rcpp;
 
-// test_adaptive_interpolator
-plant::interpolator::Interpolator test_adaptive_interpolator(Rcpp::Function f, double a, double b);
-RcppExport SEXP _plant_test_adaptive_interpolator(SEXP fSEXP, SEXP aSEXP, SEXP bSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::Function >::type f(fSEXP);
-    Rcpp::traits::input_parameter< double >::type a(aSEXP);
-    Rcpp::traits::input_parameter< double >::type b(bSEXP);
-    rcpp_result_gen = Rcpp::wrap(test_adaptive_interpolator(f, a, b));
-    return rcpp_result_gen;
-END_RCPP
-}
-// test_gradient_fd1
-double test_gradient_fd1(Rcpp::Function f, double x, double dx, int direction, double fx);
-RcppExport SEXP _plant_test_gradient_fd1(SEXP fSEXP, SEXP xSEXP, SEXP dxSEXP, SEXP directionSEXP, SEXP fxSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::Function >::type f(fSEXP);
-    Rcpp::traits::input_parameter< double >::type x(xSEXP);
-    Rcpp::traits::input_parameter< double >::type dx(dxSEXP);
-    Rcpp::traits::input_parameter< int >::type direction(directionSEXP);
-    Rcpp::traits::input_parameter< double >::type fx(fxSEXP);
-    rcpp_result_gen = Rcpp::wrap(test_gradient_fd1(f, x, dx, direction, fx));
-    return rcpp_result_gen;
-END_RCPP
-}
-// test_gradient_richardson
-double test_gradient_richardson(Rcpp::Function f, double x, double d, size_t r);
-RcppExport SEXP _plant_test_gradient_richardson(SEXP fSEXP, SEXP xSEXP, SEXP dSEXP, SEXP rSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::Function >::type f(fSEXP);
-    Rcpp::traits::input_parameter< double >::type x(xSEXP);
-    Rcpp::traits::input_parameter< double >::type d(dSEXP);
-    Rcpp::traits::input_parameter< size_t >::type r(rSEXP);
-    rcpp_result_gen = Rcpp::wrap(test_gradient_richardson(f, x, d, r));
-    return rcpp_result_gen;
-END_RCPP
-}
-// FF16_plant_to_plant_plus
-plant::PlantPlus<plant::FF16_Strategy> FF16_plant_to_plant_plus(plant::Plant<plant::FF16_Strategy> p, SEXP environment);
-RcppExport SEXP _plant_FF16_plant_to_plant_plus(SEXP pSEXP, SEXP environmentSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< plant::Plant<plant::FF16_Strategy> >::type p(pSEXP);
-    Rcpp::traits::input_parameter< SEXP >::type environment(environmentSEXP);
-    rcpp_result_gen = Rcpp::wrap(FF16_plant_to_plant_plus(p, environment));
-    return rcpp_result_gen;
-END_RCPP
-}
-// FF16r_plant_to_plant_plus
-plant::PlantPlus<plant::FF16r_Strategy> FF16r_plant_to_plant_plus(plant::Plant<plant::FF16r_Strategy> p, SEXP environment);
-RcppExport SEXP _plant_FF16r_plant_to_plant_plus(SEXP pSEXP, SEXP environmentSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< plant::Plant<plant::FF16r_Strategy> >::type p(pSEXP);
-    Rcpp::traits::input_parameter< SEXP >::type environment(environmentSEXP);
-    rcpp_result_gen = Rcpp::wrap(FF16r_plant_to_plant_plus(p, environment));
-    return rcpp_result_gen;
-END_RCPP
-}
-// FF16FvCB_plant_to_plant_plus
-plant::PlantPlus<plant::FF16FvCB_Strategy> FF16FvCB_plant_to_plant_plus(plant::Plant<plant::FF16FvCB_Strategy> p, SEXP environment);
-RcppExport SEXP _plant_FF16FvCB_plant_to_plant_plus(SEXP pSEXP, SEXP environmentSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< plant::Plant<plant::FF16FvCB_Strategy> >::type p(pSEXP);
-    Rcpp::traits::input_parameter< SEXP >::type environment(environmentSEXP);
-    rcpp_result_gen = Rcpp::wrap(FF16FvCB_plant_to_plant_plus(p, environment));
-    return rcpp_result_gen;
-END_RCPP
-}
-// oderunner_plant_size
-plant::PlantPlus_internals oderunner_plant_size(const plant::ode::Runner<plant::tools::PlantRunner>& obj);
-RcppExport SEXP _plant_oderunner_plant_size(SEXP objSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const plant::ode::Runner<plant::tools::PlantRunner>& >::type obj(objSEXP);
-    rcpp_result_gen = Rcpp::wrap(oderunner_plant_size(obj));
-    return rcpp_result_gen;
-END_RCPP
-}
-// fixed_environment
-plant::Environment fixed_environment(double canopy_openness, double height_max);
-RcppExport SEXP _plant_fixed_environment(SEXP canopy_opennessSEXP, SEXP height_maxSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< double >::type canopy_openness(canopy_opennessSEXP);
-    Rcpp::traits::input_parameter< double >::type height_max(height_maxSEXP);
-    rcpp_result_gen = Rcpp::wrap(fixed_environment(canopy_openness, height_max));
-    return rcpp_result_gen;
-END_RCPP
-}
-// FF16_lcp_whole_plant
-double FF16_lcp_whole_plant(plant::PlantPlus<plant::FF16_Strategy> p);
-RcppExport SEXP _plant_FF16_lcp_whole_plant(SEXP pSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< plant::PlantPlus<plant::FF16_Strategy> >::type p(pSEXP);
-    rcpp_result_gen = Rcpp::wrap(FF16_lcp_whole_plant(p));
-    return rcpp_result_gen;
-END_RCPP
-}
-// FF16r_lcp_whole_plant
-double FF16r_lcp_whole_plant(plant::PlantPlus<plant::FF16r_Strategy> p);
-RcppExport SEXP _plant_FF16r_lcp_whole_plant(SEXP pSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< plant::PlantPlus<plant::FF16r_Strategy> >::type p(pSEXP);
-    rcpp_result_gen = Rcpp::wrap(FF16r_lcp_whole_plant(p));
-    return rcpp_result_gen;
-END_RCPP
-}
-// FF16FvCB_lcp_whole_plant
-double FF16FvCB_lcp_whole_plant(plant::PlantPlus<plant::FF16FvCB_Strategy> p);
-RcppExport SEXP _plant_FF16FvCB_lcp_whole_plant(SEXP pSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< plant::PlantPlus<plant::FF16FvCB_Strategy> >::type p(pSEXP);
-    rcpp_result_gen = Rcpp::wrap(FF16FvCB_lcp_whole_plant(p));
-    return rcpp_result_gen;
-END_RCPP
-}
 // Lorenz__ctor
 plant::ode::test::Lorenz Lorenz__ctor(double sigma, double R, double b);
 RcppExport SEXP _plant_Lorenz__ctor(SEXP sigmaSEXP, SEXP RSEXP, SEXP bSEXP) {
@@ -7447,6 +7313,140 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// test_adaptive_interpolator
+plant::interpolator::Interpolator test_adaptive_interpolator(Rcpp::Function f, double a, double b);
+RcppExport SEXP _plant_test_adaptive_interpolator(SEXP fSEXP, SEXP aSEXP, SEXP bSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::Function >::type f(fSEXP);
+    Rcpp::traits::input_parameter< double >::type a(aSEXP);
+    Rcpp::traits::input_parameter< double >::type b(bSEXP);
+    rcpp_result_gen = Rcpp::wrap(test_adaptive_interpolator(f, a, b));
+    return rcpp_result_gen;
+END_RCPP
+}
+// test_gradient_fd1
+double test_gradient_fd1(Rcpp::Function f, double x, double dx, int direction, double fx);
+RcppExport SEXP _plant_test_gradient_fd1(SEXP fSEXP, SEXP xSEXP, SEXP dxSEXP, SEXP directionSEXP, SEXP fxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::Function >::type f(fSEXP);
+    Rcpp::traits::input_parameter< double >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type dx(dxSEXP);
+    Rcpp::traits::input_parameter< int >::type direction(directionSEXP);
+    Rcpp::traits::input_parameter< double >::type fx(fxSEXP);
+    rcpp_result_gen = Rcpp::wrap(test_gradient_fd1(f, x, dx, direction, fx));
+    return rcpp_result_gen;
+END_RCPP
+}
+// test_gradient_richardson
+double test_gradient_richardson(Rcpp::Function f, double x, double d, size_t r);
+RcppExport SEXP _plant_test_gradient_richardson(SEXP fSEXP, SEXP xSEXP, SEXP dSEXP, SEXP rSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::Function >::type f(fSEXP);
+    Rcpp::traits::input_parameter< double >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type d(dSEXP);
+    Rcpp::traits::input_parameter< size_t >::type r(rSEXP);
+    rcpp_result_gen = Rcpp::wrap(test_gradient_richardson(f, x, d, r));
+    return rcpp_result_gen;
+END_RCPP
+}
+// FF16_plant_to_plant_plus
+plant::PlantPlus<plant::FF16_Strategy> FF16_plant_to_plant_plus(plant::Plant<plant::FF16_Strategy> p, SEXP environment);
+RcppExport SEXP _plant_FF16_plant_to_plant_plus(SEXP pSEXP, SEXP environmentSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< plant::Plant<plant::FF16_Strategy> >::type p(pSEXP);
+    Rcpp::traits::input_parameter< SEXP >::type environment(environmentSEXP);
+    rcpp_result_gen = Rcpp::wrap(FF16_plant_to_plant_plus(p, environment));
+    return rcpp_result_gen;
+END_RCPP
+}
+// FF16r_plant_to_plant_plus
+plant::PlantPlus<plant::FF16r_Strategy> FF16r_plant_to_plant_plus(plant::Plant<plant::FF16r_Strategy> p, SEXP environment);
+RcppExport SEXP _plant_FF16r_plant_to_plant_plus(SEXP pSEXP, SEXP environmentSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< plant::Plant<plant::FF16r_Strategy> >::type p(pSEXP);
+    Rcpp::traits::input_parameter< SEXP >::type environment(environmentSEXP);
+    rcpp_result_gen = Rcpp::wrap(FF16r_plant_to_plant_plus(p, environment));
+    return rcpp_result_gen;
+END_RCPP
+}
+// FF16FvCB_plant_to_plant_plus
+plant::PlantPlus<plant::FF16FvCB_Strategy> FF16FvCB_plant_to_plant_plus(plant::Plant<plant::FF16FvCB_Strategy> p, SEXP environment);
+RcppExport SEXP _plant_FF16FvCB_plant_to_plant_plus(SEXP pSEXP, SEXP environmentSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< plant::Plant<plant::FF16FvCB_Strategy> >::type p(pSEXP);
+    Rcpp::traits::input_parameter< SEXP >::type environment(environmentSEXP);
+    rcpp_result_gen = Rcpp::wrap(FF16FvCB_plant_to_plant_plus(p, environment));
+    return rcpp_result_gen;
+END_RCPP
+}
+// oderunner_plant_size
+plant::PlantPlus_internals oderunner_plant_size(const plant::ode::Runner<plant::tools::PlantRunner>& obj);
+RcppExport SEXP _plant_oderunner_plant_size(SEXP objSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const plant::ode::Runner<plant::tools::PlantRunner>& >::type obj(objSEXP);
+    rcpp_result_gen = Rcpp::wrap(oderunner_plant_size(obj));
+    return rcpp_result_gen;
+END_RCPP
+}
+// fixed_environment
+plant::Environment fixed_environment(double canopy_openness, double height_max);
+RcppExport SEXP _plant_fixed_environment(SEXP canopy_opennessSEXP, SEXP height_maxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type canopy_openness(canopy_opennessSEXP);
+    Rcpp::traits::input_parameter< double >::type height_max(height_maxSEXP);
+    rcpp_result_gen = Rcpp::wrap(fixed_environment(canopy_openness, height_max));
+    return rcpp_result_gen;
+END_RCPP
+}
+// FF16_lcp_whole_plant
+double FF16_lcp_whole_plant(plant::PlantPlus<plant::FF16_Strategy> p);
+RcppExport SEXP _plant_FF16_lcp_whole_plant(SEXP pSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< plant::PlantPlus<plant::FF16_Strategy> >::type p(pSEXP);
+    rcpp_result_gen = Rcpp::wrap(FF16_lcp_whole_plant(p));
+    return rcpp_result_gen;
+END_RCPP
+}
+// FF16r_lcp_whole_plant
+double FF16r_lcp_whole_plant(plant::PlantPlus<plant::FF16r_Strategy> p);
+RcppExport SEXP _plant_FF16r_lcp_whole_plant(SEXP pSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< plant::PlantPlus<plant::FF16r_Strategy> >::type p(pSEXP);
+    rcpp_result_gen = Rcpp::wrap(FF16r_lcp_whole_plant(p));
+    return rcpp_result_gen;
+END_RCPP
+}
+// FF16FvCB_lcp_whole_plant
+double FF16FvCB_lcp_whole_plant(plant::PlantPlus<plant::FF16FvCB_Strategy> p);
+RcppExport SEXP _plant_FF16FvCB_lcp_whole_plant(SEXP pSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< plant::PlantPlus<plant::FF16FvCB_Strategy> >::type p(pSEXP);
+    rcpp_result_gen = Rcpp::wrap(FF16FvCB_lcp_whole_plant(p));
+    return rcpp_result_gen;
+END_RCPP
+}
 // cohort_schedule_times_default
 std::vector<double> cohort_schedule_times_default(double max_time);
 RcppExport SEXP _plant_cohort_schedule_times_default(SEXP max_timeSEXP) {
@@ -7521,17 +7521,6 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_plant_test_adaptive_interpolator", (DL_FUNC) &_plant_test_adaptive_interpolator, 3},
-    {"_plant_test_gradient_fd1", (DL_FUNC) &_plant_test_gradient_fd1, 5},
-    {"_plant_test_gradient_richardson", (DL_FUNC) &_plant_test_gradient_richardson, 4},
-    {"_plant_FF16_plant_to_plant_plus", (DL_FUNC) &_plant_FF16_plant_to_plant_plus, 2},
-    {"_plant_FF16r_plant_to_plant_plus", (DL_FUNC) &_plant_FF16r_plant_to_plant_plus, 2},
-    {"_plant_FF16FvCB_plant_to_plant_plus", (DL_FUNC) &_plant_FF16FvCB_plant_to_plant_plus, 2},
-    {"_plant_oderunner_plant_size", (DL_FUNC) &_plant_oderunner_plant_size, 1},
-    {"_plant_fixed_environment", (DL_FUNC) &_plant_fixed_environment, 2},
-    {"_plant_FF16_lcp_whole_plant", (DL_FUNC) &_plant_FF16_lcp_whole_plant, 1},
-    {"_plant_FF16r_lcp_whole_plant", (DL_FUNC) &_plant_FF16r_lcp_whole_plant, 1},
-    {"_plant_FF16FvCB_lcp_whole_plant", (DL_FUNC) &_plant_FF16FvCB_lcp_whole_plant, 1},
     {"_plant_Lorenz__ctor", (DL_FUNC) &_plant_Lorenz__ctor, 3},
     {"_plant_Lorenz__ode_size__get", (DL_FUNC) &_plant_Lorenz__ode_size__get, 1},
     {"_plant_Lorenz__ode_state__get", (DL_FUNC) &_plant_Lorenz__ode_state__get, 1},
@@ -8190,6 +8179,17 @@ static const R_CallMethodDef CallEntries[] = {
     {"_plant_make_cohort_schedule__Parameters___FF16", (DL_FUNC) &_plant_make_cohort_schedule__Parameters___FF16, 1},
     {"_plant_make_cohort_schedule__Parameters___FF16r", (DL_FUNC) &_plant_make_cohort_schedule__Parameters___FF16r, 1},
     {"_plant_make_cohort_schedule__Parameters___FF16FvCB", (DL_FUNC) &_plant_make_cohort_schedule__Parameters___FF16FvCB, 1},
+    {"_plant_test_adaptive_interpolator", (DL_FUNC) &_plant_test_adaptive_interpolator, 3},
+    {"_plant_test_gradient_fd1", (DL_FUNC) &_plant_test_gradient_fd1, 5},
+    {"_plant_test_gradient_richardson", (DL_FUNC) &_plant_test_gradient_richardson, 4},
+    {"_plant_FF16_plant_to_plant_plus", (DL_FUNC) &_plant_FF16_plant_to_plant_plus, 2},
+    {"_plant_FF16r_plant_to_plant_plus", (DL_FUNC) &_plant_FF16r_plant_to_plant_plus, 2},
+    {"_plant_FF16FvCB_plant_to_plant_plus", (DL_FUNC) &_plant_FF16FvCB_plant_to_plant_plus, 2},
+    {"_plant_oderunner_plant_size", (DL_FUNC) &_plant_oderunner_plant_size, 1},
+    {"_plant_fixed_environment", (DL_FUNC) &_plant_fixed_environment, 2},
+    {"_plant_FF16_lcp_whole_plant", (DL_FUNC) &_plant_FF16_lcp_whole_plant, 1},
+    {"_plant_FF16r_lcp_whole_plant", (DL_FUNC) &_plant_FF16r_lcp_whole_plant, 1},
+    {"_plant_FF16FvCB_lcp_whole_plant", (DL_FUNC) &_plant_FF16FvCB_lcp_whole_plant, 1},
     {"_plant_cohort_schedule_times_default", (DL_FUNC) &_plant_cohort_schedule_times_default, 1},
     {"_plant_test_uniroot", (DL_FUNC) &_plant_test_uniroot, 3},
     {"_plant_trapezium", (DL_FUNC) &_plant_trapezium, 2},

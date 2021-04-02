@@ -4,7 +4,8 @@
 \alias{plant_log_console}
 \title{Activate logging with loggr}
 \usage{
-plant_log_console(..., .message = FALSE, .warning = FALSE, .error = FALSE)
+plant_log_console(..., .message = FALSE, .warning = FALSE,
+  .error = FALSE)
 }
 \arguments{
 \item{...}{Additional parameters passed to \code{loggr::log_file},
@@ -30,4 +31,3 @@ everything else is sent to INFO.  All events have a "routine"
 field added to them, which is useful if sent to a Redis server
 (using \code{loggr.redis}).
 }
-

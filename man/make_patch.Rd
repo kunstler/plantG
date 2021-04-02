@@ -2,8 +2,8 @@
 % Please edit documentation in R/scm_support.R
 \name{make_patch}
 \alias{make_patch}
-\alias{scm_patch}
 \alias{scm_state}
+\alias{scm_patch}
 \title{Reconstruct a patch}
 \usage{
 make_patch(state, p)
@@ -24,4 +24,3 @@ scm_patch(i, x)
 \description{
 Functions for reconstructing a Patch from an SCM
 }
-

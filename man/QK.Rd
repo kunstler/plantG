@@ -12,4 +12,3 @@ QK(rule)
 \description{
 Gauss-Kronrod Quadrature
 }
-

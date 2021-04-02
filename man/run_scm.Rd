@@ -23,4 +23,3 @@ This is the simplest way of using the SCM, probably.
 \author{
 Rich FitzJohn
 }
-

@@ -13,4 +13,3 @@ variadic arguments, or as a list, but not both).}
 \description{
 Strategy parameters that tune various aspects of the biological model.
 }
-

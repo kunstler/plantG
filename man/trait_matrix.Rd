@@ -18,4 +18,3 @@ Helper function to create trait matrices suitable for
 \author{
 Rich FitzJohn
 }
-

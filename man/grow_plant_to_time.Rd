@@ -16,4 +16,3 @@ grow_plant_to_time(plant, times, env)
 \description{
 Grow a plant up for particular time lengths
 }
-

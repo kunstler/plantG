@@ -23,4 +23,3 @@ Only works in one dimension
 \author{
 Rich FitzJohn
 }
-

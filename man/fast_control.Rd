@@ -13,7 +13,9 @@ defaults are used.}
 \value{
 A Control object with parameters set.
 }
+\description{
+Fast Control Defaults
+}
 \author{
 Rich FitzJohn
 }
-

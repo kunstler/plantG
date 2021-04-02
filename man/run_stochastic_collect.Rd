@@ -23,4 +23,3 @@ Consider this function liable to change.
 \author{
 Rich FitzJohn
 }
-

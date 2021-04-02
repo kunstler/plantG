@@ -14,4 +14,3 @@ details.}
 \description{
 Plant object
 }
-

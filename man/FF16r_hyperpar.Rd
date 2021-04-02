@@ -6,4 +6,6 @@
 \usage{
 FF16r_hyperpar(m, s, filter = TRUE)
 }
-
+\description{
+Hyperparameters for FF16r physiological model are same as FF16
+}

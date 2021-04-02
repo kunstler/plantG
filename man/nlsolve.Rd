@@ -22,4 +22,3 @@ evaluations will likely exceed this.}
 \description{
 Thin wrapper around \code{nleqslv} and \code{dfsane}
 }
-

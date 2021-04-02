@@ -9,4 +9,3 @@ Interpolator()
 \description{
 Spline interpolation
 }
-

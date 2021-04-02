@@ -24,4 +24,3 @@ isolation.
 \author{
 Rich FitzJohn
 }
-
