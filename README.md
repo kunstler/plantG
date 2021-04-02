@@ -13,64 +13,61 @@ Falster DS, FitzJohn RG, Brännström Å, Dieckmann U, Westoby M (2016) plant: A
 
 ## Documentation
 
-For an overview of the plant package see the above publication. Further background on the default `FF16` growth model is available in Falster *et al* 2011 ([10.1111/j.1365-2745.2010.01735.x](http://doi.org/10.1111/j.1365-2745.2010.01735.x)) and Falster *et al* 2017 ([10.1101/083451](http://doi.org/10.1101/083451)).
+An overview of the plant package is given by the above publication. Further background on the default `FF16` growth model is available in Falster *et al* 2011 ([10.1111/j.1365-2745.2010.01735.x](http://doi.org/10.1111/j.1365-2745.2010.01735.x)) and Falster *et al* 2017 ([10.1101/083451](http://doi.org/10.1101/083451)).
 
-Run `library(help=plant)` to see the index of functions.
+`plant` comes with a lot of documentation, available at [https://traitecoevo.github.io/plant/](https://traitecoevo.github.io/plant/). Initial versions for some of the material there was also  included as supplementary material with the publication about plant, which can be accessed [here](http://onlinelibrary.wiley.com/doi/10.1111/2041-210X.12525/abstract#footer-support-info). 
 
-`plant` comes with a lot of documentation. Initial versions were included as supplementary material with the publication about plant, which can be accessed [here](http://onlinelibrary.wiley.com/doi/10.1111/2041-210X.12525/abstract#footer-support-info). Updated versions can be built from within the package (instructions below) or accessed online:
 
-**Details of the modelling approaches:**
+## Package structure
 
-* `vignette("demography")`: Modelling demography of plants, patches and metapopulations [online](https://traitecoevo.github.io/plant/vignettes/demography.pdf)
-* `vignette("physiology")`: Plant physiological model [online](https://traitecoevo.github.io/plant/vignettes/physiology.pdf)
+Plant is a complex package, using [C++11](https://en.wikipedia.org/wiki/C%2B%2B11) behind the scenes for speed with [R6 classes](https://cran.r-project.org/web/packages/R6/vignettes/Introduction.html) (via the [Rcpp](https://cran.r-project.org/web/packages/Rcpp/index.html) and [RcppR6](https://github.com/richfitz/RcppR6) packages).  In this blog post, Rich FitzJohn and I describe the [key technologies used to build the plant package](https://methodsblog.wordpress.com/2016/02/23/plant/). 
 
-**Details of using `plant` from R:**
-
-* `vignette("plant")`: Plant level properties [online](https://traitecoevo.github.io/plant/vignettes/plant.html)
-* `vignette("cohort_spacing")`: The cohort spacing algorithm [online](https://traitecoevo.github.io/plant/vignettes/cohort_spacing.html)
-* `vignette("equilibrium")`: Finding demographic equilibrium [online](https://traitecoevo.github.io/plant/vignettes/equilibrium.html)
-* `vignette("patch")`: Patch level dynamics [online](https://traitecoevo.github.io/plant/vignettes/patch.html)
-* `vignette("emergent")`: Patch level emergent properties [online](https://traitecoevo.github.io/plant/vignettes/emergent.html)
-* `vignette("fitness")`: Calculating fitness [online](https://traitecoevo.github.io/plant/vignettes/fitness.html)
-* `vignette("parameters")`: Modifying parameters of the physiological model [online](https://traitecoevo.github.io/plant/vignettes/parameters.html)
-
-If you want to build the vignettes locally, see [`docs/README.md`](docs/README.md) for details.  The vignettes are not built as part of the package installation as they take a couple of hours to build.
-
-**Details on package structure**
-
-Plant is a complex package. It uses [C++11](https://en.wikipedia.org/wiki/C%2B%2B11) behind the scenes for speed, and [R6 classes](https://cran.r-project.org/web/packages/R6/vignettes/Introduction.html). 
-
-In this blog post, Rich FitzJohn and I describe the [key technologies used to build the plant package](https://methodsblog.wordpress.com/2016/02/23/plant/).
-
+If you are interested in developing plant you should read the [Developer Notes](https://traitecoevo.github.io/plant/articles/developer_notes.html).
 
 ## Installation
 
-You must be using R 3.2.0 or newer. At this stage the package is not on cran. You're options for installing are described below.
+**Requirements**
 
-Installation requires a C++11 compatible C compiler (OSX >= 10.10/Yosemite satisfies this, as do standard linux Ubuntu 12.04 and 14.04). On Windows machines you will need to install [Rtools](http://cran.r-project.org/bin/windows/Rtools/). When I tried this in Rstudio, Rstudio automagically sensed the absence of a compiler and asked if I wanted to install Rtools. Click `Yes`!
+- You must be using R 3.3.0 or newer. At this stage the package is not on CRAN. You're options for installing are described below.
 
-**Option 1, using `devtools::install_github`**
 
-(install `devtools` with `install.packages("devtools")`)
+- Installation requires a C++11 compatible C compiler (OSX >= 10.10/Yosemite satisfies this, as do standard linux Ubuntu 12.04 and 14.04). On Windows machines you will need to install [Rtools](http://cran.r-project.org/bin/windows/Rtools/). When I tried this in [Rstudio](https://www.rstudio.com/), the program [automagically](https://en.oxforddictionaries.com/definition/automagically) sensed the absence of a compiler and asked if I wanted to install Rtools. Click `Yes`!
 
-The `plant` package can be installed direct from github using the [`devtools`](https://cran.r-project.org/web/packages/devtools/index.html) package. `plant` also requires the packages `loggr` and `RcppR6` packages. Install those with
+- The `plant` package can be installed direct from github using the [`remotes`](https://cran.r-project.org/web/packages/remotes/index.html) package. `plant` also requires the packages `loggr` and `RcppR6` packages. Install those with
 
 ```r
-devtools::install_github("smbache/loggr", dependencies=TRUE)
-devtools::install_github("richfitz/RcppR6", dependencies=TRUE)
+install.packages("remotes")
+
+remotes::install_github("smbache/loggr", dependencies=TRUE)
+remotes::install_github("richfitz/RcppR6", dependencies=TRUE)
 ```
 
-Then install plant:
+- `plant` also depends on several packages available from CRAN. You can either install these yourself or let `remotes` handle if following installation **Option 1**. Package management in R can sometimes be messy, if you run into errors please try installing these pacakges one at a time.
 
 ```r
-devtools::install_github("traitecoevo/plant", dependencies=TRUE)
+
+install.packages(c("Rcpp", "R6", "crayon", "nleqslv", "BB" ,"BH"))
+``` 
+
+**Option 1, using `remotes::install_github`**
+
+```r
+remotes::install_github("traitecoevo/plant", dependencies=TRUE)
+```
+
+or if you have already installed the `plant` dependencies
+
+```r
+remotes::install_github("traitecoevo/plant")
 ```
 
 **Option 2, download and install locally**
 
-If installing locally you will still need to install the `loggr` and `RcppR6` packages. Install using `devtools::install_github` as above, or alternatively do as follows.
+If installing locally you will still need to install the `loggr` and `RcppR6` packages. Install using `remotes::install_github` as above or, alternatively, download a zip file from github:
 
-Download a zip file from github of the dependencies [RcppR6](https://github.com/richfitz/RcppR6/archive/master.zip) and [loggr](https://github.com/smbache/loggr/archive/master.zip) (if needed), plus [plant](https://github.com/traitecoevo/plant/archive/master.zip). 
+- [RcppR6](https://github.com/richfitz/RcppR6/archive/master.zip)
+- [loggr](https://github.com/smbache/loggr/archive/master.zip) (if needed)
+- [plant](https://github.com/traitecoevo/plant/archive/master.zip). 
 
 Unzip these archives and then for each package run the command
 
@@ -79,6 +76,40 @@ install.packages("path_to_package", repos = NULL, type="source")
 
 ```
 where `path_to_package` is the folder for each package, e.g. `~/Downloads/plant-master`
+
+
+**Option 3, installing different versions** 
+
+To install a specific (older) release, decide for the version number that you want to install in https://github.com/traitecoevo/plant/releases  e.g.
+
+```r
+remotes::install_github("traitecoevo/plant", ref = "v1.0.0", dependencies=TRUE)
+
+```
+
+with `"v1.0.0"` replaced by the appropriate version number. Note, the latest version of `plant` resides on the `develop` branch, which is sporadically relased. `plant` follows [semantic versioning](https://semver.org/) meaning that major version indicate a potential break in backward compatibility.
+
+**Option 4, building from source**
+
+If familiar with [git](https://git-scm.com/) you might find it easiest to build `plant` directly from the source code. This is most useful if developing new models or strategies, or to contribute new features.
+
+First, clone the `plant` repository
+
+```
+git clone https://github.com/traitecoevo/plant
+```
+
+then in the terminal or command line
+
+```
+cd plant
+make
+```
+
+If using Rstudio, you might like to use `devtools`
+```
+devtools::load_all('path/to/plant')
+```
 
 ## Usage
 

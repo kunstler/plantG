@@ -10,6 +10,10 @@ install:
 environment:
   _R_CHECK_FORCE_SUGGESTS_: false
 
+branches:
+  except:
+    - gh-pages
+
 build_script:
   - travis-tool.sh install_deps
   - travis-tool.sh github_package richfitz/RcppR6
@@ -21,3 +25,9 @@ test_script:
 
 on_failure:
   - travis-tool.sh dump_logs
+
+notifications:
+  - provider: Slack
+    incoming_webhook:
+      secure: WzvE1NjyDzOBbIMYbHFBZdBIDeqBwm+BMnrSxeued0de+RFokWM7IOk2Eo9wBlfWz1QLCoyMhujr8MKnsPw6NWkm3cWr+Tuc5i1KpV6+2OE=
+

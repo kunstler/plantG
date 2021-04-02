@@ -98,8 +98,9 @@ validate <- function(x, ...) {
   ## TODO: This uses an implementation detail of RcppR6 that is not
   ## really OK to use; this could change at any moment.  Probably I'll
   ## expose this in some RcppR6 generated code eventually.
-  type <- extract_RcppR6_template_type(x, "Parameters")
-  get(sprintf("Parameters___%s__vdor", type), plant, inherits=FALSE)(x)
+  types <- extract_RcppR6_template_types(x, "Parameters")
+  constructor = do.call('sprintf', c("Parameters___%s__%s__vdor", types))
+  get(constructor, plant, inherits=FALSE)(x)
 }
 
 loop <- function(X, FUN, ..., parallel=FALSE) {
@@ -132,6 +133,7 @@ cbind_list <- function(x) {
 ##' @param ... Additional parameters passed to
 ##' \code{\link{splinefun}}.
 ##' @export
+##' @importFrom stats splinefun
 ##' @author Rich FitzJohn
 splinefun_log <- function(x, y, ...) {
   f <- splinefun(log(x), y, ...)
@@ -140,6 +142,7 @@ splinefun_log <- function(x, y, ...) {
   }
 }
 ##' @export
+##' @importFrom stats splinefun
 ##' @rdname splinefun_log
 splinefun_loglog <- function(x, y, ...) {
   f <- splinefun(log(x), log(y), ...)
@@ -200,6 +203,7 @@ vcapply <- function(X, FUN, ...) {
 ##' @param col Vector of colours
 ##' @param opacity Vector of opacities
 ##' @export
+##' @importFrom grDevices col2rgb rgb
 ##' @examples
 ##' make_transparent("red", seq(0, 1, length.out=6))
 ##' make_transparent(c("red", "blue"), .5)
@@ -228,17 +232,19 @@ assert_named_if_not_empty <- function(x, name=deparse(substitute(x))) {
   }
 }
 
+#' @importFrom utils modifyList
 modify_list <- function(x, val) {
   modifyList(x, val[intersect(names(val), names(x))])
 }
 
-extract_RcppR6_template_type <- function(x, base) {
+extract_RcppR6_template_types <- function(x, base) {
   cl <- class(x)[[1]]
   re <- sprintf("^%s<([^>]+)>$", base)
   if (!grepl(re, cl)) {
     stop("Unexpected type ", cl)
   }
-  sub(re, "\\1", cl)
+  # Return a vector of type name strings
+  as.list(strsplit(sub(re, "\\1", cl), ',')[[1]])
 }
 
 rep1 <- function(x, length.out, name=deparse(substitute(x))) {

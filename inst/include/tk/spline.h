@@ -6,6 +6,7 @@
  *
  * ---------------------------------------------------------------------
  * Copyright (C) 2011, 2014 Tino Kluge (ttk448 at gmail.com)
+ * https://github.com/ttk592/spline/
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License
@@ -26,6 +27,13 @@
 
 #ifndef _tk_spline_h
 #define _tk_spline_h
+
+/* Defining NDEBUG before cassert is included disables assert functions in 
+ * tk_spline.cpp
+ * (see http://en.cppreference.com/w/cpp/error/assert for details)
+ * Assert functions are not allowed in R extensions because 
+ * 
+ */ 
 
 #include <cstdio>
 #include <cassert>

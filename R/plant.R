@@ -8,7 +8,7 @@
 ##' @param sizes A vector of sizes to grow the plant to (increasing in
 ##' size).
 ##' @param size_name The name of the size variable within
-##' \code{Plant$vars_phys} (e.g., height).
+##' \code{Plant$rates} (e.g., height).
 ##' @param env An \code{Environment} object.
 ##' @param time_max Time to run the ODE out for -- only exists to
 ##' prevent an infinite loop (say, on an unreachable size).
@@ -78,8 +78,13 @@ grow_plant_to_time <- function(plant, times, env) {
   t0 <- 0.0
   i <- 1L
   t_next <- times[[i]]
-  runner <- OdeRunner("PlantRunner")(PlantRunner(plant, env))
-  runner_detail <- OdeRunner("PlantRunner")(PlantRunner(plant, env))
+  strategy_name <- plant$strategy_name
+
+  pr1 <- IndividualRunner(strategy_name, environment_type(strategy_name))(plant, env)
+  pr2 <- IndividualRunner(strategy_name, environment_type(strategy_name))(plant, env)
+
+  runner <- OdeRunner(strategy_name)(pr1)
+  runner_detail <- OdeRunner(strategy_name)(pr2)
 
   ## TODO: This could also be done by better configuring the
   ## underlying ODE runner, but this seems a reasonable way of getting
@@ -107,16 +112,27 @@ grow_plant_to_time <- function(plant, times, env) {
   list(time=times, state=state, plant=plant, env=env)
 }
 
+## internal funciton to grab the internal state of the ode runner:
+get_plant_internals_fun <- function (plant) {
+  get(paste0(plant$strategy_name, '_oderunner_plant_internals'))
+}
+
 grow_plant_bracket <- function(plant, sizes, size_name, env,
                                time_max=Inf, warn=TRUE) {
   if (length(sizes) == 0L || is.unsorted(sizes)) {
     stop("sizes must be non-empty and sorted")
   }
-  if (plant$internals[[size_name]] > sizes[[1]]) {
+  if (plant$state(size_name) > sizes[[1]]) {
     stop("Plant already bigger than smallest target size")
   }
+  strategy_name <- plant$strategy_name
 
-  runner <- OdeRunner("PlantRunner")(PlantRunner(plant, env))
+  # TODO: size index uses index from 0
+  # can we clarify?
+  size_index <- (which(plant$ode_names == size_name) - 1)
+
+  runner <- OdeRunner(strategy_name)(IndividualRunner(strategy_name, environment_type(strategy_name))(plant, env))
+  internals <- get_plant_internals_fun(runner$object$plant)
   i <- 1L
   n <- length(sizes)
   j <- rep_len(NA_integer_, n)
@@ -144,7 +160,9 @@ grow_plant_bracket <- function(plant, sizes, size_name, env,
       break
     }
     state <- c(state, list(list(time=runner$time, state=runner$state)))
-    while (i <= n && oderunner_plant_size(runner)[[size_name]] > sizes[[i]]) {
+
+
+    while (i <= n && internals(runner)$state(size_index) > sizes[[i]]) {
       j[[i]] <- length(state) - 1L
       i <- i + 1L
     }
@@ -171,11 +189,20 @@ grow_plant_bracket <- function(plant, sizes, size_name, env,
        runner=runner)
 }
 
+##' @noRd
+##' @importFrom stats uniroot
 grow_plant_bisect <- function(runner, size, size_name, t0, t1, y0) {
+
+
+  # TODO: size index uses index from 0
+  # can we clarify?
+  size_index <- (which(runner$object$plant$ode_names == size_name) - 1)
+
+  internals <- get_plant_internals_fun(runner$object$plant)
   f <- function(t1) {
     runner$set_state(y0, t0)
     runner$step_to(t1)
-    oderunner_plant_size(runner)[[size_name]] - size
+    internals(runner)$state(size_index) - size
   }
 
   if (is.na(t0) || is.na(t1) || any(is.na(y0))) {
@@ -187,43 +214,17 @@ grow_plant_bisect <- function(runner, size, size_name, t0, t1, y0) {
   }
 }
 
-## These are waiting on RcppR6 #23 and plant #164
-
-## This will get merged into RcppR6, so may change!
-plant_to_plant_plus <- function(x, ...) {
-  UseMethod("plant_to_plant_plus")
-}
-##' @export
-`plant_to_plant_plus.Plant<FF16>` <- function(x, ...) {
-  FF16_plant_to_plant_plus(x, ...)
-}
-##' @export
-`plant_to_plant_plus.Plant<FF16r>` <- function(x, ...) {
-  FF16r_plant_to_plant_plus(x, ...)
-}
-##' @export
-`plant_to_plant_plus.Plant<FF16FvCB>` <- function(x, ...) {
-  FF16FvCB_plant_to_plant_plus(x, ...)
-}
-
-##' Compute the whole plant light compensation point for a single
-##' plant.
-##' @title Whole plant light compensation point
-##' @param p A \code{PlantPlus}, with strategy, height, etc set.
-##' @param ... Additional arguments that are ignored
-##' @export
-##' @author Rich FitzJohn
+#' Compute the whole plant light compensation point for a single
+#' plant.
+#' @title Whole plant light compensation point
+#' @param p A \code{PlantPlus}, with strategy, height, etc set.
+#' @param ... Additional arguments that are ignored
+#' @export
+#' @author Rich FitzJohn
 lcp_whole_plant <- function(p, ...) {
   UseMethod("lcp_whole_plant")
 }
-##' @export
-`lcp_whole_plant.PlantPlus<FF16>` <- function(p, ...) {
-  FF16_lcp_whole_plant(p, ...)
-}
-##' @export
-`lcp_whole_plant.PlantPlus<FF16r>` <- function(p, ...) {
-  FF16r_lcp_whole_plant(p, ...)
-}
+
 ##' @export
 `lcp_whole_plant.PlantPlus<FF16FvCB>` <- function(p, ...) {
   FF16FvCB_lcp_whole_plant(p, ...)
@@ -231,5 +232,5 @@ lcp_whole_plant <- function(p, ...) {
 
 ##' @export
 lcp_whole_plant.Plant <- function(p, ...) {
-  lcp_whole_plant(plant_to_plant_plus(p, NULL))
+  lcp_whole_plant(p, ...)
 }

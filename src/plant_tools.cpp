@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include <plant.h>
 #include <plant/uniroot.h>
 
@@ -16,39 +17,28 @@ Environment fixed_environment(double canopy_openness,
   ret.light_environment = env;
   return ret;
 }
+=======
+>>>>>>> upstream/master
 
-}
-}
+#include <plant.h>
 
-// TOOD: Now that this returns all the variables, it probably needs a
-// change of name.  However, it's only used internally so it's not
-// that big of a deal.
 // [[Rcpp::export]]
-plant::PlantPlus_internals
-oderunner_plant_size(const plant::ode::Runner<plant::tools::PlantRunner>& obj) {
+plant::Internals FF16_oderunner_plant_internals(
+  const plant::ode::Runner<plant::tools::IndividualRunner<plant::FF16_Strategy,plant::FF16_Environment>>& obj) {
   return obj.obj.plant.r_internals();
 }
 
-//' Create a light environment where light levels are constant down
-//' the canopy.
-//'
-//' @title Create fixed light environment
-//' @param canopy_openness Index of canopy openness (on 0,1)
-//' @param height_max Maximum height.  The default (150) should be big
-//' enough for most uses.
-//' @export
-//' @author Rich FitzJohn
 // [[Rcpp::export]]
-plant::Environment fixed_environment(double canopy_openness,
-                                     double height_max=150.0) {
-  return plant::tools::fixed_environment(canopy_openness, height_max);
+plant::Internals FF16r_oderunner_plant_internals(
+  const plant::ode::Runner<plant::tools::IndividualRunner<plant::FF16r_Strategy, plant::FF16_Environment>>& obj) {
+  return obj.obj.plant.r_internals();
 }
 
 
-// Technical debt: (See RcppR6 #23 and plant #164)
 
 //' @export
 // [[Rcpp::export]]
+<<<<<<< HEAD
 double FF16_lcp_whole_plant(plant::PlantPlus<plant::FF16_Strategy> p) {
   return plant::tools::lcp_whole_plant(p);
 }
@@ -62,3 +52,11 @@ double FF16r_lcp_whole_plant(plant::PlantPlus<plant::FF16r_Strategy> p) {
 double FF16FvCB_lcp_whole_plant(plant::PlantPlus<plant::FF16FvCB_Strategy> p) {
   return plant::tools::lcp_whole_plant(p);
 }
+=======
+plant::Internals K93_oderunner_plant_internals(
+  const plant::ode::Runner<plant::tools::IndividualRunner<plant::K93_Strategy, plant::K93_Environment>>& obj) {
+  return obj.obj.plant.r_internals();
+}
+
+
+>>>>>>> upstream/master
